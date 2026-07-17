@@ -1,5 +1,7 @@
 # Energy Inflation Correlation Engine
 
+*Built by **Maitrayee Anand Vishnu** ([@maitrayee196](https://github.com/maitrayee196))*
+
 **When oil prices jump, how long does it take before you feel it at the store — and how much of inflation is really just oil?**
 
 This project answers that question with real data. It pulls crude oil prices and U.S. consumer inflation data live from FRED (the Federal Reserve's public database), and measures how strongly — and how quickly — oil price shocks pass through into the prices consumers actually pay.
@@ -62,7 +64,7 @@ The dashboard also runs a **Granger causality test**, which asks a sharper quest
 ## Run it yourself
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/energy-inflation-correlation-engine.git
+git clone https://github.com/maitrayee196/energy-inflation-correlation-engine.git
 cd energy-inflation-correlation-engine
 pip install -r requirements.txt
 
@@ -96,6 +98,12 @@ No API key needed — FRED's endpoint is public. Data refreshes automatically: o
 - Results are sensitive to extreme episodes (2008, 2020, 2022). A rolling-window version would show whether pass-through strength has changed over time.
 - U.S.-only, WTI-only for now; Brent and other countries' CPI would make a nice comparison.
 - Ideas on the list: rolling-window regressions, Brent vs WTI, a forecast module using the fitted lag structure.
+
+## Author
+
+**Maitrayee Anand Vishnu** — [GitHub](https://github.com/maitrayee196)
+
+Questions or suggestions? Open an issue on this repo.
 
 ## License
 
