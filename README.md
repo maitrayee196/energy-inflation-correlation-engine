@@ -58,7 +58,7 @@ Third trap: year over year data looks smooth and convincing, but each data point
 
 I came to this from a finance background, not a software one. What I wanted to show is that I can take a question a portfolio manager or FP&A team would actually ask, find the right public data, apply the statistics honestly including their limitations, and ship something interactive that anyone can use without installing a thing.
 
-The honesty part matters most to me. It would have been easy to report one impressive R² and stop. Instead the project surfaces its own caveats: the sample period sensitivity, the year over year distortion, the difference between correlation and predictive causality. In my experience at JPMorgan, the analysis people trust is the one that shows its weaknesses.
+The honesty part matters most to me. It would have been easy to report one impressive R² and stop. Instead the project surfaces its own caveats: the sample period sensitivity, the year over year distortion, the difference between correlation and predictive causality. In my experience, the analysis people trust is the one that shows its weaknesses.
 
 ## What is in this repo
 
