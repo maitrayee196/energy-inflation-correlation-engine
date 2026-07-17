@@ -1,15 +1,9 @@
 """
-st.title("⛽ Energy Inflation Correlation Engine")
-st.markdown(
-    "Measures how oil price shocks pass through into U.S. consumer inflation, "
-    "using time-lagged linear regression against live FRED data."
-)
-st.markdown(
-    "Built by **Maitrayee Vishnu** · MS Finance, Stevens Institute of Technology · "
-    "[LinkedIn](https://www.linkedin.com/in/maitrayee-vishnu) · "
-    "[Portfolio](https://maitrayee196.github.io/Maitrayee_Portfolio/) · "
-    "[GitHub](https://github.com/maitrayee196/energy-inflation-correlation-engine)"
-)
+Energy Inflation Correlation Engine — Interactive Dashboard
+--------------------------------------------------------------
+Streamlit app: live-fetches WTI oil + CPI data from FRED, lets the user
+explore time-lagged correlation interactively.
+
 Run:
     pip install -r requirements.txt
     streamlit run app.py
@@ -21,7 +15,6 @@ from statsmodels.tsa.stattools import grangercausalitytests, adfuller
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from pandas_datareader import data as web
 from datetime import datetime
 
 # ---------------------------------------------------------------------------
@@ -50,12 +43,17 @@ st.set_page_config(page_title="Energy Inflation Correlation Engine", layout="wid
 # ---------------------------------------------------------------------------
 @st.cache_data(ttl=3600, show_spinner="Fetching latest data from FRED...")
 def fetch_fred_series(start: str):
+    """Fetch each series directly from FRED's public CSV endpoint.
+    More reliable than pandas_datareader (which can silently truncate on
+    some pandas/urllib version combinations)."""
     frames = {}
     for label, code in SERIES.items():
-        s = web.DataReader(code, "fred", start, None)[code]
-        frames[label] = s
+        url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={code}"
+        s = pd.read_csv(url, index_col=0, parse_dates=True, na_values=".")
+        frames[label] = s.iloc[:, 0]
     df = pd.DataFrame(frames)
     df.index = pd.to_datetime(df.index)
+    df = df[df.index >= pd.to_datetime(start)]
     df = df.resample("MS").mean()
     return df.dropna(how="all")
 
@@ -156,6 +154,12 @@ st.title("⛽ Energy Inflation Correlation Engine")
 st.markdown(
     "Measures how oil price shocks pass through into U.S. consumer inflation, "
     "using time-lagged linear regression against live FRED data."
+)
+st.markdown(
+    "Built by **Maitrayee Vishnu** · MS Finance, Stevens Institute of Technology · "
+    "[LinkedIn](https://www.linkedin.com/in/maitrayee-vishnu) · "
+    "[Portfolio](https://maitrayee196.github.io/Maitrayee_Portfolio/) · "
+    "[GitHub](https://github.com/maitrayee196/energy-inflation-correlation-engine)"
 )
 
 raw = fetch_fred_series(start_date.isoformat())
@@ -319,3 +323,6 @@ with st.expander("Methodology & limitations"):
   for the prior month). "Live" here means the dashboard re-fetches on each cache refresh,
   not that the underlying data itself updates in real time.
 """)
+
+st.divider()
+st.caption("© 2026 Maitrayee Vishnu · Data: FRED (Federal Reserve Economic Data) · MIT License")
