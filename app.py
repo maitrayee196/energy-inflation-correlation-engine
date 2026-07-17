@@ -1,9 +1,15 @@
 """
-Energy Inflation Correlation Engine — Interactive Dashboard
---------------------------------------------------------------
-Streamlit app: live-fetches WTI oil + CPI data from FRED, lets the user
-explore time-lagged correlation interactively.
-
+st.title("⛽ Energy Inflation Correlation Engine")
+st.markdown(
+    "Measures how oil price shocks pass through into U.S. consumer inflation, "
+    "using time-lagged linear regression against live FRED data."
+)
+st.markdown(
+    "Built by **Maitrayee Vishnu** · MS Finance, Stevens Institute of Technology · "
+    "[LinkedIn](https://www.linkedin.com/in/maitrayee-vishnu) · "
+    "[Portfolio](https://maitrayee196.github.io/Maitrayee_Portfolio/) · "
+    "[GitHub](https://github.com/maitrayee196/energy-inflation-correlation-engine)"
+)
 Run:
     pip install -r requirements.txt
     streamlit run app.py
